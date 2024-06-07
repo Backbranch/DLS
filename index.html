@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>DLS - Home</title>
+    <style>
+      
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+  
+      @keyframes staticAnim {
+        0% {
+          transform: translateY(-30vh) translateX(-30vw);
+        }
+        33% {
+          transform: translateY(-10vh) translateX(-90vw);
+        }
+        66% {
+          transform: translateY(-50vh) translateX(-80vw);
+        }
+        100% {
+          transform: translateY(-10vh) translateX(-50vw);
+        }
+      }
+  
+      @keyframes slideFade {
+          0% {
+              transform: translateY(20px);
+              opacity: 0;
+          }
+          100% {
+              transform: translateY(0);
+              opacity: 1;
+          }
+      }
+
+      @keyframes spinner {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #0d0d0d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-top: 4px solid #ffffff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spinner 1s linear infinite;
+      }
+  
+      .slideText {
+          display: inline-block;
+          animation: slideFade 1s ease forwards;
+          opacity: 0;
+      }
+  
+      .slideText:nth-child(1) {
+          animation-delay: 0s;
+      }
+  
+      .slideText:nth-child(2) {
+          animation-delay: 0.25s;
+      }
+  
+      .slideText:nth-child(3) {
+          animation-delay: 0.5s;
+      }
+      
+      body{
+        display: flex;
+        justify-content: center;
+        background-color: #0d0d0d;
+        padding: 40px;
+        overflow-x: hidden;
+      }
+      
+      .header{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 50px;
+        width: 100vw;
+        min-width: 470px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #0d0d0d;
+        color: #ffffff;
+        font-family: "Playfair Display", serif;
+      }
+  
+      .headerItem{
+        display: flex;
+        height: 40px;
+        align-items: center;
+        font-size: 15pt;
+        cursor: pointer;
+      }
+  
+      .dlsLogo{
+        width: 40px;
+      }
+  
+      .logoText{
+        position: relative;
+        margin: 0;
+        padding: 0;
+        width: min-content;
+        height: min-content;
+        font-size: 20pt;
+      }
+  
+      .mainTitle{
+        font-size: 8vw;
+        font-weight: 500;
+        letter-spacing: 3vw;
+        color: white;
+        width: 100vw;
+        width: min-content;
+        margin-left: 20px;
+      }
+
+      .swoop{
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .singleSwoop{
+        position: absolute;
+        width: 100vw;
+        height: 100%;
+        transform: scaleX(2);
+        top: -20%;
+        z-index: -1;
+        fil
+      }
+  
+      .static{
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-width: 200vw;
+        min-height: 200vh;
+        opacity: 0.03;
+        z-index: -1;
+        filter: blur(1px);
+        animation: staticAnim 1s steps(8) 0s infinite;
+      }
+  
+      .staticContainer{
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .mainContent{
+        display: none;
+        width: 100vw;
+      }
+
+      .menuToggle{
+        display: none;
+        width: 100vw;
+        height: 50px;
+        color: white;
+        font-size: 20pt;
+        text-align: center;
+      }
+
+      .hamburger{
+        transform: scaleX(3);
+        cursor: pointer;
+      }
+
+      .mobileHeaderItem{
+        display: none;
+      }
+
+      .mobileNav{
+        display: none;
+      }
+      
+      @media (max-aspect-ratio: 1/1) {
+        .header{
+          display: none;
+        }
+
+        .mobileHeaderItem.dlsLogo{
+          transform: scale(2);
+        }
+
+        .menuToggle{
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .mainTitle{
+          text-align: center;
+          font-size: 10vw;
+          width: min-content;
+          margin-top: -20px;
+        }
+
+        .mobileHeaderItem{
+          display: flex;
+          height: 60px;
+          align-items: center;
+          font-size: 20pt;
+          cursor: pointer;
+        }
+        
+        .mobileNavList{
+          display:flex;
+          z-index: 1;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          width: 100vw;
+          margin-top: 0px;
+          height: calc(100vh - 50px);
+        }
+
+        .mobileNav{
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 100vw;
+          height: 100vh;
+          position: fixed;
+          top: calc(-100vh + 50px);
+          left: 0;
+          background-color: #0d0d0d;
+          color: #ffffff;
+          font-family: "Playfair Display", serif;
+        }
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="loading-screen" id="loadingScreen">
+      <div class="spinner"></div>
+    </div>
+    <div class="mainContent">
+    <div class="staticContainer">
+    <img class="static" src="https://lh3.googleusercontent.com/d/1AIQz1ChxL8j0YMPyWBPXVXV74h-97BPO" />
+    </div>
+    <div class="mobileNav" id="mobileNav">
+      <div class="mobileNavList" id="mobileNavList">
+      <div class="mobileHeaderItem dlsLogo">
+        <div class="logoText" style="top:-10px; left:0px;">D</div>
+        <div class="logoText" style="top:-1px; left:-4px;">L</div>
+        <div class="logoText" style="top:8px; left:-8px;">S</div>
+      </div>
+      <div class="mobileHeaderItem">
+        About Us
+      </div>
+      <div class="mobileHeaderItem">
+        Our Limos
+      </div>
+      <div class="mobileHeaderItem">
+        Locations
+      </div>
+      <div class="mobileHeaderItem">
+        Order/Contact
+      </div>
+      </div>
+    <div class="menuToggle" onclick="toggleMenu()"><span class="hamburger">☰</span></div>
+    </div>
+    <div class="header" id="header">
+      <div class="headerItem dlsLogo">
+        <div class="logoText" style="top:-10px; left:0px;">D</div>
+        <div class="logoText" style="top:-1px; left:-4px;">L</div>
+        <div class="logoText" style="top:8px; left:-8px;">S</div>
+      </div>
+      <div class="headerItem">
+        About Us
+      </div>
+      <div class="headerItem">
+        Our Limos
+      </div>
+      <div class="headerItem">
+        Locations
+      </div>
+      <div class="headerItem">
+        Order/Contact
+      </div>
+    </div>
+    <div class="mainTitle">
+      <div class="swoop">
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+        <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+        </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg><svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+        <svg class="singleSwoop" xmlns="http://www.w3.org/2000/svg" width="1443" height="803" viewBox="0 0 1443 803" fill="none">
+          <path d="M1.64754 720C1.64754 720 -24.3524 666.5 253.148 408C530.648 149.5 601.148 93 530.648 248C460.148 403 783.148 347 905.648 327C1028.15 307 1055.65 551.5 924.648 682.5C793.648 813.5 629.647 842.5 491.148 740.5C352.648 638.5 413.647 506.5 443.648 461C473.648 415.5 791.148 -6.5 890.648 51.5C990.148 109.5 808.648 367.5 777.148 525C745.648 682.5 913.147 834 1118.65 777C1324.15 720 1442.15 1 1442.15 1" stroke="#a8a8a8"/>
+          </svg>
+      </div>
+      <p>
+      <span class="slideText" >DYNAMIC <br></span>
+      <span class="slideText" >LIMOUSINE <br></span>
+      <span class="slideText" >SERVICES</span>
+      </p>
+    </div>
+  </div>
+  </body>
+  <script>
+    var open = false;
+   
+      function toggleMenu() {
+      const mobileNav = document.getElementById("mobileNav");
+      if ( !open ) {
+        mobileNav.animate(
+          [{ top: "0" }],
+          {
+            duration: 500,
+            easing: "ease-in-out",
+            fill: "forwards",
+          }
+        );
+        open = true;
+      } else {
+        mobileNav.animate(
+          [{ top: "calc(-100vh + 50px)" }],
+          {
+            duration: 500,
+            easing: "ease-in-out",
+            fill: "forwards",
+          }
+        );
+        open = false;
+        }
+      }
+    window.addEventListener("load", function () {
+      const loadingScreen = document.getElementById("loadingScreen");
+      loadingScreen.style.display = "none";
+      const mainContent = document.querySelector(".mainContent");
+      mainContent.style.display = "block";
+    });
+  </script>
+</html>
