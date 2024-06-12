@@ -49,8 +49,8 @@ window.addEventListener("load", async function () {
 
   try {
     await Promise.all([
-      loadComponent('fullHeader', 'components/fullHeader.html'),
-      loadComponent('swoop', 'components/swoop.html')
+      loadComponent('fullHeader', '../components/fullHeader.html'),
+      loadComponent('swoop', '../components/swoop.html')
     ]);
   } catch (error) {
     console.error('Error loading components:', error);
